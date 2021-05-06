@@ -11,29 +11,33 @@
         <div id='app'></div>
 
         <script type='text/babel'>
-            function FriendsList (props) {
-                return (
-                    <ul>
-                        {props.list.map((name) =>(
-                            <li key={name}>
-                                <span>{name} </span>
-                                <button onClick={() => props.onRemoveFriend(name)}>Remove</button>
-                            </li>
-                        ))}
-                    </ul>
-                )
-            }
 
             function ActiveFriends (props) {
                 return (
                     <div>
                         <h2>Active Friends</h2>
                         <ul>
-                            {props.list.map((friends) => (
+                            {props.list.map((friend) => (
                                 <li key={friend.name}>
                                     <span>{friend.name}</span>
                                     <button onClick={() => props.onRemoveFriend(friend.name)}>Remove</button>
                                     <button onClick={() => props.onToggleFriend(friend.name)}>Deactivate</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )
+            }
+
+            function InactiveFriends (props) {
+                return (
+                    <div>
+                        <h2>Inactive Friends</h2>
+                        <ul>
+                            {props.list.map((friend) => (
+                                <li key={friend.name}>
+                                    <span>{friend.name}</span>
+                                    <button onClick={() => props.onToggleFriend(friend.name)}>Activate</button>
                                 </li>
                             ))}
                         </ul>
@@ -121,10 +125,18 @@
                                 value={this.state.input}
                                 onChange={this.updateInput}
                             />
+
                             <button onClick={this.handleAddFriend}>Submit</button>
-                            <FriendsList 
-                                list={this.state.friends}
-                                onRemoveFriend={this.handleRemoveFriend} 
+
+                            <ActiveFriends
+                                list={this.state.friends.filter((friend) => friend.active === true)}
+                                onRemoveFriend={this.handleRemoveFriend}
+                                onToggleFriend={this.handleToggleFriend}
+                            />
+
+                            <InactiveFriends
+                                list={this.state.friends.filter((friend) => friend.active === false)}
+                                onToggleFriend={this.handleToggleFriend}
                             />
                         </div>
                     )
