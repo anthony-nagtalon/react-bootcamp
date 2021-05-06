@@ -128,6 +128,12 @@
 
                             <button onClick={this.handleAddFriend}>Submit</button>
 
+                            <div>
+                                <button onClick={() => this.setState({
+                                    friends: []
+                                })}>Clear All</button>
+                            </div>
+
                             <ActiveFriends
                                 list={this.state.friends.filter((friend) => friend.active === true)}
                                 onRemoveFriend={this.handleRemoveFriend}
