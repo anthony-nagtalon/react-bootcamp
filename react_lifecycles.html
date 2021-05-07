@@ -90,6 +90,13 @@
 
                 componentDidMount() {
                     console.log('--componentDidMount--')
+
+                    API.fetchFriends()
+                        .then((friends) => {
+                            this.setState({
+                                friends
+                            })
+                        })
                 }
 
                 componentDidUpdate() {
