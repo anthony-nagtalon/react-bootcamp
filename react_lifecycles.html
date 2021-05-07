@@ -10,6 +10,31 @@
     <body>
         <div id='app'></div>
 
+        <script>
+            window.API = {
+                fetchFriends() {
+                    return new Promise((res, rej) => {
+                        const friends = [
+                            {
+                                name: 'Pem',
+                                active: true
+                            },
+                            {
+                                name: 'Kaori',
+                                active: true
+                            },
+                            {
+                                name: 'Ai',
+                                active: true
+                            }
+                        ]
+
+                        setTimeout(() => res(friends), 2000)
+                    })
+                }
+            }
+        </script>
+
         <script type='text/babel'>
 
             function ActiveFriends (props) {
@@ -51,20 +76,7 @@
                     super(props)
 
                     this.state = {
-                        friends: [
-                            {
-                                name: 'Pem',
-                                active: true
-                            },
-                            {
-                                name: 'Kaori',
-                                active: true
-                            },
-                            {
-                                name: 'Ai',
-                                active: true
-                            }
-                        ],
+                        friends: [],
                         input: ''
                     }
 
@@ -72,6 +84,20 @@
                     this.updateInput = this.updateInput.bind(this)
                     this.handleAddFriend = this.handleAddFriend.bind(this)
                     this.handleToggleFriend = this.handleToggleFriend.bind(this)
+
+                    console.log('--constructor--')
+                }
+
+                componentDidMount() {
+                    console.log('--componentDidMount--')
+                }
+
+                componentDidUpdate() {
+                    console.log('--componentDidUpdate--')
+                }
+
+                componentWillUnmount() {
+                    console.log('--componentWillUnmount--')
                 }
 
                 handleAddFriend() {
@@ -117,6 +143,8 @@
                 }
 
                 render() {
+                    console.log('--render--')
+
                     return (
                         <div>
                             <input
