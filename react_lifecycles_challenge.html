@@ -24,7 +24,7 @@
                 });
             }
         }
-        
+
     </script>
 
     <script type='text/babel'>
@@ -62,11 +62,27 @@
             }
         }
 
+        function Nav (props) {
+            const languages = ['all', 'javascript', 'ruby', 'python']
+
+            return (
+                <nav>
+                    <ul>
+                        {languages.map((lang) =>
+                            <li key={lang} onClick={() => ({})}>
+                                {lang}
+                            </li>
+                        )}
+                    </ul>
+                </nav>
+            )
+        }
+
         class App extends React.Component {
             render() {
                 return (
                     <div>
-                        
+                        <Nav />
                     </div>
                 )
             }
