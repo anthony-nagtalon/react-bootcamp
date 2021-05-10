@@ -78,6 +78,22 @@
             )
         }
 
+        function RepoGrid (props) {
+            return (
+                <ul style={{display: 'flex', flexWrap: 'wrap'}}>
+                    {props.repos.map(({name, owner, stargazers_count, html_url}) => (
+                        <li key={name} style={{margin: 30}}>
+                            <ul>
+                                <li><a href={html_url}>{name}</a></li>
+                                <li>@{owner.login}</li>
+                                <li>{stargazers_count}</li>
+                            </ul>
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+
         class App extends React.Component {
 
             constructor(props) {
@@ -91,6 +107,26 @@
                 }
                 
                 this.handleSelectLanguage = this.handleSelectLanguage.bind(this)
+                this.fetchRepos = this.fetchRepos.bind(this)
+            }
+
+            componentDidMount() {
+                this.fetchRepos(this.state.activeLanguage)
+            }
+
+            fetchRepos(lang) {
+                this.setState({
+                    loading: true
+                })
+
+
+                window.API.fetchPopularRepos(lang)
+                    .then((repos) => {
+                        this.setState({
+                            loading: false,
+                            repos
+                        })
+                    })
             }
 
             handleSelectLanguage(lang) {
@@ -103,6 +139,14 @@
                 return (
                     <div>
                         <Nav onSelectLanguage={this.handleSelectLanguage} />
+                        {this.state.loading === true
+                            ? <Loading />
+                            : <div>
+                                <h1 style={{textAlign: 'center'}}>
+                                    {this.state.activeLanguage}
+                                </h1>
+                                <RepoGrid repos={this.state.repos}/>
+                              </div>}
                     </div>
                 )
             }
