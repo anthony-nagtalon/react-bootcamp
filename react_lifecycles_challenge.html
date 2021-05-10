@@ -35,7 +35,7 @@
                 super(props);
 
                 this.state = {
-                text: 'Loading'
+                    text: 'Loading'
                 };
             }
 
@@ -112,6 +112,12 @@
 
             componentDidMount() {
                 this.fetchRepos(this.state.activeLanguage)
+            }
+
+            componentDidUpdate(prevProps, prevState) {
+                if(prevState.activeLanguage !== this.state.activeLanguage) {
+                    this.fetchRepos(this.state.activeLanguage)
+                }
             }
 
             fetchRepos(lang) {
