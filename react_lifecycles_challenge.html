@@ -69,7 +69,7 @@
                 <nav>
                     <ul>
                         {languages.map((lang) =>
-                            <li key={lang} onClick={() => ({})}>
+                            <li key={lang} onClick={() => props.onSelectLanguage(lang)}>
                                 {lang}
                             </li>
                         )}
@@ -79,10 +79,30 @@
         }
 
         class App extends React.Component {
+
+            constructor(props) {
+                super(props)
+
+                this.state = {
+                    repos: [],
+                    activeLanguage: 'all',
+                    loading: true
+
+                }
+                
+                this.handleSelectLanguage = this.handleSelectLanguage.bind(this)
+            }
+
+            handleSelectLanguage(lang) {
+                    this.setState({
+                        activeLanguage: lang
+                    })
+                }
+
             render() {
                 return (
                     <div>
-                        <Nav />
+                        <Nav onSelectLanguage={this.handleSelectLanguage} />
                     </div>
                 )
             }
